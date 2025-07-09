@@ -1,16 +1,14 @@
 pipeline {
-    agent any
-
-    environment {
-        DEPLOY_ENV = 'staging'
-        USER_NAME = 'manasa'
-    }
-
-    stages {
-        stage ('Print Environment') {
-            steps {
-                sh 'echo "Deploying to ${env.DEPLOY_ENV} by ${env.USER_NAME}" '
-            }
-        }
-    }
+	agent any
+	stages {
+	stage('Build') {
+		steps {
+		WithCredentials([UsernamePassword(Credential ID:'id1pat', User Variable: 'GITHUB_CREDS_USR', Password Variable: 'GITHUB_CREDS_PSW')])
+			{
+				echo "my username : ${GITHUB_CREDS_USR}"
+				echo "my password : ${GITHUB_CREDS_psw}"
+			}
+		}
+	}
 }
+
